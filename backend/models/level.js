@@ -1,19 +1,25 @@
 module.exports = (sequelize, DataTypes) => {
-    const model = sequelize.define('Level',{
+    const Level = sequelize.define('Level',{
         name: {
             type: DataTypes.STRING(255),
         },
         description: {
             type: DataTypes.STRING(1000),
+        },
+        img_logo: {
+            type: DataTypes.STRING(255),
         }
     },
     {
-        tableName: 'Level'
+        timestamps: false
+      },
+    {
+        tableName: 'levels'
     }
 
     );
-    model.associate = models => {
-        model.hasMany(models.Product, {foreignkey: 'level_id'});
+    Level.associate = models => {
+        Level.hasMany(models.Product, {foreignKey: 'level_id'});
     };
-    return model;
-}
+    return Level;
+};

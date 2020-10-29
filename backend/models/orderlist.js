@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const model = sequelize.define('OrderList', {
+    const OrderList = sequelize.define('OrderList', {
         productName: {
            type: DataTypes.STRING(255),
         },
@@ -11,15 +11,17 @@ module.exports = (sequelize, DataTypes) => {
         }
     },
     {
-      tableName: 'OrderLists'
+      tableName: 'orderLists'
     });
 
-    /*model.associate = models => {
-       model.belongTo(models.Product, {foreignKey: 'product_id'});
-       model.belongTo(models.Orders, {foreignKey: 'order_id'});
-       model.belongTo(models.User, {foreignKey: 'user_id'});
-    };*/
+    OrderList.associate = models => {
+       /*OrderList.belongsTo(models.Product, {foreignKey: 'product_id'})
+       OrderList.belongsTo(models.Order, {foreignKey: 'order_id'})
+       OrderList.belongsTo(models.User, {foreignKey: 'user_id'})*/
+       OrderList.belongsTo(models.Order, { foreignKey: 'order_id'});
+   
+    };
 
-    return model;
-}
+    return OrderList;
+};
 

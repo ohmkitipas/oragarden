@@ -1,20 +1,26 @@
 module.exports = (sequelize, DataTypes) => {
-    const model = sequelize.define('Category', {
+    const Category = sequelize.define('Category', {
         name: {
             type: DataTypes.STRING(255),
         },
         description: {
             type: DataTypes.STRING(1000),
+        },
+        img_logo: {
+            type: DataTypes.STRING(255),
         }
     },
     {
-        tableName: 'Category'
+        timestamps: false
+      },
+    {
+        tableName: 'categories'
     }
 
     );
-    model.associate = models => {
-        model.hasMany(models.Product, { foreignKey: 'category_id'});
+    Category.associate = models => {
+        Category.hasMany(models.Product, { foreignKey: 'category_id'});
     };
 
-    return model;
-}
+    return Category;
+};

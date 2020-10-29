@@ -1,7 +1,5 @@
-const category = require("./category");
-
 module.exports = (sequelize, DataTypes) => {
-    const model = sequelize.define('Product',{
+    const Product = sequelize.define('Product',{
         name: {
            type: DataTypes.STRING(255),
         },
@@ -28,15 +26,19 @@ module.exports = (sequelize, DataTypes) => {
         }
     },
     {
+      timestamps: false
+    },
+    {
         tableName: 'products'
     });
-    model.associate = models => {
-        model.belongTo(models.Category, {foreignKey: 'category_id'});
-        model.belongTo(models.Level, {foreignKey: 'level_id'});
-        model.belongTo(models.WaterLevel, { foreignKey: 'water_id'});
-        model.belongToMany(models.User, {through: models.Orders, foreignKey: 'product_id'});
-        //model.hasMany(models.OrderList, { foreignKey: 'product_id'});
+    Product.associate = models => {
+        Product.belongsTo(models.Category, {foreignKey: 'category_id'});
+        Product.belongsTo(models.Level, {foreignKey: 'level_id'});
+        Product.belongsTo(models.WaterLevel, { foreignKey: 'water_id'});
+        Product.belongsToMany(models.User, {through: models.OrderList, foreignKey: 'product_id'});
+        //Product.hasMany(models.OrderList, { foreignKey: 'product_id'});
+        
     };
 
-    return model;
-}
+    return Product;
+};
